@@ -20,6 +20,15 @@ if (!isset($_SESSION['username'])) {
         <h1>Welcome <?php echo "<span class='white'>" . $_SESSION['username'] . "</span>"; ?> to the chat !</h1>
         <a id='btn_disconnect' href="disconnect.php">Disconnect</a>
     </header>
+    <main>
+        <div id="chat">
+            <p>test</p>
+            <p>test</p>
+            <p>test</p>
+            <p>test</p>
+            <p>test</p>
+        </div>
+    </main>
 </body>
 
 </html>

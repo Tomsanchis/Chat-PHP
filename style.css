@@ -64,3 +64,14 @@ header {
 .white {
     color: #fff;
 }
+
+#chat {
+    border: solid 1px;
+    margin: 20px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#chat p {
+   margin: 25px 0;
+}

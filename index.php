@@ -26,7 +26,9 @@
     };
 
     conn.onmessage = function(e) {
-        document.querySelector('#chat').innerHTML += `<p>${e.data}</p>`;
+        if (e.data !== undefined) {
+            document.querySelector('#chat').innerHTML += `<p>${e.data}</p>`;
+        }
     };
 
     document.querySelector('#btnsubmit').addEventListener('click', (e) => {

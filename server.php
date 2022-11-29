@@ -33,6 +33,8 @@ class ServerImpl implements MessageComponentInterface
                     $client->send($msg);
                 }
             }
+        } else {
+            echo sprintf("Message undefined");
         }
     }
 

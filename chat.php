@@ -17,7 +17,7 @@ if (!isset($_SESSION['username'])) {
 
 <body>
     <header>
-        <h1>Welcome <?php echo "<span class='white'>" . $_SESSION['username'] . "</span>"; ?> to the chat !</h1>
+        <h1>Welcome <?php echo "<span class='white'>" . htmlentities($_SESSION['username'], ENT_QUOTES) . "</span>"; ?> to the chat !</h1>
         <a id='btn_disconnect' href="disconnect.php">Disconnect</a>
     </header>
     <main>
@@ -34,29 +34,28 @@ if (!isset($_SESSION['username'])) {
 
 </html>
 
-<?php
-if (isset($_SESSION['username'])) { ?>
-    <script>
-        var conn = new WebSocket('ws://localhost:8080');
-        conn.onopen = function(e) {
-            console.log("Connection established!");
-        };
 
-        conn.onmessage = function(e) {
-            if (e.data !== undefined) {
-                document.querySelector('#messages').innerHTML += `<p>${e.data}</p>`;
-            }
-        };
 
-        document.querySelector('#btnsubmit').addEventListener('click', (e) => {
-            e.preventDefault()
-            const text = document.querySelector('#text').value
-            if (text !== "") {
-                let name = '<?php echo $_SESSION['username'] ?>';
-                let text_content = '<p>' + name + ': ' + `${text}</p>`;
-                const sender = document.querySelector('#messages').innerHTML += text_content;
-                conn.send(text_content)
-            }
-        })
-    </script>
-<?php } ?>
+<script>
+    var conn = new WebSocket('ws://localhost:8080');
+    conn.onopen = function(e) {
+        console.log("Connection established!");
+    };
+
+    conn.onmessage = function(e) {
+        if (e.data !== undefined) {
+            document.querySelector('#messages').innerHTML += `<p>${e.data}</p>`;
+        }
+    };
+
+    document.querySelector('#btnsubmit').addEventListener('click', (e) => {
+        e.preventDefault()
+        const text = document.querySelector('#text').value
+        if (text !== "") {
+            let name = `<?php echo $_SESSION['username'] ?>`;
+            let text_content = '<p>' + name + ': ' + `${text}</p>`;
+            const sender = document.querySelector('#messages').innerHTML += text_content;
+            conn.send(text_content)
+        }
+    })
+</script>

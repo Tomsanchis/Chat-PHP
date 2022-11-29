@@ -40,25 +40,3 @@ if (isset($_SESSION['username'])) {
 </body>
 
 </html>
-
-<!-- <script>
-    var conn = new WebSocket('ws://localhost:8080');
-    conn.onopen = function(e) {
-        console.log("Connection established!");
-    };
-
-    conn.onmessage = function(e) {
-        if (e.data !== undefined) {
-            document.querySelector('#chat').innerHTML += `<p>${e.data}</p>`;
-        }
-    };
-
-    document.querySelector('#btnsubmit').addEventListener('click', (e) => {
-        e.preventDefault()
-        const text = document.querySelector('#text').value
-        if (text !== "") {
-            document.querySelector('#chat').innerHTML += `<p>${text}</p>`;
-            conn.send(text)
-        }
-    })
-</script> -->

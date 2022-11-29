@@ -22,13 +22,41 @@ if (!isset($_SESSION['username'])) {
     </header>
     <main>
         <div id="chat">
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
-            <p>test</p>
+            <div id="messages"></div>
+            <form action="#" method="post">
+                <label for="text">Message :</label>
+                <input type="text" name="text" id="text">
+                <input type="submit" value="Envoyer" id="btnsubmit">
+            </form>
         </div>
     </main>
 </body>
 
 </html>
+
+<?php
+if (isset($_SESSION['username'])) { ?>
+    <script>
+        var conn = new WebSocket('ws://localhost:8080');
+        conn.onopen = function(e) {
+            console.log("Connection established!");
+        };
+
+        conn.onmessage = function(e) {
+            if (e.data !== undefined) {
+                document.querySelector('#messages').innerHTML += `<p>${e.data}</p>`;
+            }
+        };
+
+        document.querySelector('#btnsubmit').addEventListener('click', (e) => {
+            e.preventDefault()
+            const text = document.querySelector('#text').value
+            if (text !== "") {
+                let name = '<?php echo $_SESSION['username'] ?>';
+                let text_content = '<p>' + name + ': ' + `${text}</p>`;
+                const sender = document.querySelector('#messages').innerHTML += text_content;
+                conn.send(text_content)
+            }
+        })
+    </script>
+<?php } ?>
